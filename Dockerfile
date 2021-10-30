@@ -38,6 +38,15 @@ RUN tar xvf /$JDK_ZIP  -C /opt  \
 ENV JAVA_HOME /opt/$JDK_VERSION/
 RUN java -version
 
+RUN sed -i 's/https/http/' /etc/apk/repositories
+
+RUN apk add --update fontconfig mkfontscale && \
+    rm -rf /var/cache/apk/*
+
+RUN apk --no-cache add wqy-zenhei --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
+    fc-cache -f && \
+    fc-list
+
 
 
 
